@@ -7,7 +7,7 @@
   [![Twitch](https://img.shields.io/badge/Twitch-%239146FF.svg?style=for-the-badge&logo=Twitch&logoColor=white)](http://twitch.tv/cuistops)
   [![Pulumi](https://img.shields.io/badge/Pulumi-8A3391?style=for-the-badge&logo=pulumi&logoColor=white)](https://www.pulumi.com/)
   [![Openstack](https://img.shields.io/badge/Openstack-%23f01742.svg?style=for-the-badge&logo=openstack&logoColor=white)](https://www.openstack.org/)
-
+  [![Falco](https://img.shields.io/badge/Falco-00FFFF.svg?style=for-the-badge&logo=falco&logoColor=black)](https://falco.org/)
 </div>
 
 ## Pulumi Falco Openstack Example
