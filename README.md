@@ -1,10 +1,10 @@
 <p align="center">
-    <img src="https://avatars.githubusercontent.com/u/82603435?v=4" width="140px" alt="Helm LOGO"/>
+    <img src="https://avatars.githubusercontent.com/u/162302167?v=4" width="140px" alt="CuistOps LOGO"/>
 </p>
 
 <div align="center">
 
-  [![Blog](https://img.shields.io/badge/Blog-blue?style=for-the-badge&logo=buymeacoffee&logoColor=white)](https://une-tasse-de.cafe/)
+  [![Twitch](https://img.shields.io/badge/Twitch-%239146FF.svg?style=for-the-badge&logo=Twitch&logoColor=white)](http://twitch.tv/cuistops)
   [![Pulumi](https://img.shields.io/badge/Pulumi-8A3391?style=for-the-badge&logo=pulumi&logoColor=white)](https://www.pulumi.com/)
   [![Openstack](https://img.shields.io/badge/Openstack-%23f01742.svg?style=for-the-badge&logo=openstack&logoColor=white)](https://www.openstack.org/)
 
@@ -16,20 +16,7 @@ This example demonstrates how to deploy nodes to try Falco on an Openstack host 
 
 Note: By default, the values in the `Pulumi.yaml` use Infomaniak Openstack. You can change the values in the `Pulumi.yaml` file to match your Openstack configuration.
 
-### Prerequisites
-
-1. [Install Pulumi](https://www.pulumi.com/docs/get-started/install/)
-2. [Install Python3](https://www.python.org/downloads/)
-3. Create a virtual environment:
-```bash
-python3 -m venv venv
-```
-4. Install the required Python packages:
-```bash
-python3 -m pip install -r requirements.txt
-```
-
-### Running the Example
+### Running this project
 
 Login to your openstack account (horizon) and source the openstack rc file:
 ```bash
