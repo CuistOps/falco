@@ -1,0 +1,10 @@
+- macro: chmod_777
+  condition: (evt.arg.mode contains S_IXOTH and evt.arg.mode contains S_IWOTH and evt.arg.mode contains S_IROTH and evt.arg.mode contains S_IXGRP and evt.arg.mode contains S_IWGRP and evt.arg.mode contains S_IRGRP and evt.arg.mode contains S_IXUSR and evt.arg.mode contains S_IWUSR and evt.arg.mode contains S_IRUSR)
+
+- rule: chmod 777
+  desc: Detect if someone is trying to chmod 777 a file
+  condition: >
+    evt.type=fchmodat and chmod_777
+  output: Someone is trying to chmod 777 a file (file=%fd.name pcmdline=%proc.pcmdline gparent=%proc.aname[2] evt_type=%evt.type user=%user.name user_uid=%user.uid user_loginuid=%user.loginuid process=%proc.name proc_exepath=%proc.exepath parent=%proc.pname command=%proc.cmdline terminal=%proc.tty)
+  priority: ERROR
+  tags: [chmod, security]
