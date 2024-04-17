@@ -1,11 +1,11 @@
-name: pulumi-kubernetes-infomaniak
+name: cuistops-falco-infomaniak
 runtime:
   name: python
   options:
     virtualenv: venv
-description: A Pulumi program that deploys a Kubernetes cluster on OpenStack
+description: A Pulumi program that deploy nodes to try Falco on OpenStack
 template:
-  description: Deploy nodes for a Kubernetes cluster on OpenStack
+  description: A minimal Python Pulumi program to try Falco on OpenStack
   config:
     flavor_admin: 
       default: a4-ram8-disk50-perf1
