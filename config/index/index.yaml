@@ -1,0 +1,15 @@
+- name: cuistops-security-rules
+  type: rulesfile
+  registry: ghcr.io
+  repository: cuistops/falco/never-chmod-777
+  description: Falco incubating rules
+  home: https://github.com/CuistOps/falco
+  keywords:
+    - never-chmod-777
+  license: apache-2.0
+  maintainers:
+    - email: quentinj@une-pause-cafe.fr
+      name: Quentin JOLY
+  sources:
+    - https://raw.githubusercontent.com/CuistOps/falco/main/config/rules/never-chmod-777.yaml
+
