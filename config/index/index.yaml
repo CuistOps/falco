@@ -1,8 +1,8 @@
-- name: cuistops-security-rules
+- name: cuistops-never-chmod-777
   type: rulesfile
   registry: ghcr.io
   repository: cuistops/falco/never-chmod-777
-  description: Falco incubating rules
+  description: Never use 'chmod 777' or 'chmod a+rwx'
   home: https://github.com/CuistOps/falco
   keywords:
     - never-chmod-777
