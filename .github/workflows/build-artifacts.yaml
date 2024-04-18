@@ -13,6 +13,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write
     strategy:
       matrix:
         include:
@@ -37,7 +38,7 @@ jobs:
           repository: falcosecurity/falcoctl
           ref: main
           path: tools/falcoctl
-
+          
       - name: Setup Golang
         uses: actions/setup-go@v4
         with:
@@ -48,21 +49,38 @@ jobs:
         run: make
         working-directory: tools/falcoctl
 
+      - name: Install falcoctl in /usr/local/bin
+        run: |
+          mv tools/falcoctl/falcoctl /usr/local/bin
+
       - name: Checkout Rules Repo
         uses: actions/checkout@v3
-        with:
-          path: config/rules
 
       - name: set repository name to lowercase
         run: |
-          echo "reponame=${reponame,,}" >>${GITHUB_ENV}
+            owner=$(echo $reponame | cut -d'/' -f1 | tr '[:upper:]' '[:lower:]')
+            echo "owner=$owner" >>${GITHUB_ENV}
         env:
           reponame: '${{ github.repository }}'
 
-      - name: Upload OCI artifacts to GitHub packages
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
+        with:
+            limit-access-to-actor: true
+            limit-access-to-users: qjoly
+        env:
+            version: ${{ matrix.version }}
+            rule_file: ${{ matrix.rule_file }}
+            name: ${{ matrix.name }}
+
+      - name: Upload OCI artifacts
         run: |
-          tools/falcoctl/falcoctl registry push \
-          --config /dev/null \
-          --type rulesfile \
-          --version ${{ matrix.version }} \
-          ${OCI_REGISTRY}/${{ env.reponame }}/${{ matrix.name }}:${{ matrix.version }} ${{ matrix.rule_file }}
+            falcoctl registry push \
+             --config /dev/null \
+             --type rulesfile \
+             --version ${version} \
+             ${OCI_REGISTRY}/${owner}/${name}:${version} ${rule_file}
+        env:
+            version: ${{ matrix.version }}
+            rule_file: ${{ matrix.rule_file }}
+            name: ${{ matrix.name }}

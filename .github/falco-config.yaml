@@ -1,0 +1,17 @@
+driver:
+    hostroot: /
+    name: falco
+    repos:
+        - https://download.falco.org/driver
+    type:
+        - modern_ebpf
+        - ebpf
+        - kmod
+    version: ""
+indexes:
+    - name: falcosecurity
+      url: https://falcosecurity.github.io/falcoctl/index.yaml
+      backend: https
+registry:
+    creds:
+        config: /home/runner/.docker/config.json
