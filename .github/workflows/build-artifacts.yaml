@@ -71,7 +71,7 @@ jobs:
              --config /dev/null \
              --type rulesfile \
              --version ${version} \
-             ${OCI_REGISTRY}/${owner}/${name}:${version} ./rules.d
+             ${OCI_REGISTRY}/${owner}/${name}:${version} ./rules.d/$(basename ${rule_file})
         env:
             version: ${{ matrix.version }}
             rule_file: ${{ matrix.rule_file }}
