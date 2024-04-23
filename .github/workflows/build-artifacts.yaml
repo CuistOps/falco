@@ -56,7 +56,7 @@ jobs:
       - name: Checkout Rules Repo
         uses: actions/checkout@v3
 
-      - name: set repository name to lowercase
+      - name: force owner name to lowercase
         run: |
             owner=$(echo $reponame | cut -d'/' -f1 | tr '[:upper:]' '[:lower:]')
             echo "owner=$owner" >>${GITHUB_ENV}
