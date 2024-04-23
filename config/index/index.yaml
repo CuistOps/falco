@@ -1,7 +1,7 @@
 - name: cuistops-never-chmod-777
   type: rulesfile
   registry: ghcr.io
-  repository: cuistops/falco/never-chmod-777
+  repository: cuistops/never-chmod-777
   description: Never use 'chmod 777' or 'chmod a+rwx'
   home: https://github.com/CuistOps/falco
   keywords:
