@@ -65,12 +65,13 @@ jobs:
         
       - name: Upload OCI artifacts
         run: |
-            cp ${rule_file} $(basename ${rule_file}) && \
+            mkdir rules.d && \
+            cp ${rule_file} ./rules.d/ && \
             falcoctl registry push \
              --config /dev/null \
              --type rulesfile \
              --version ${version} \
-             ${OCI_REGISTRY}/${owner}/${name}:${version} $(basename ${rule_file})
+             ${OCI_REGISTRY}/${owner}/${name}:${version} ./rules.d
         env:
             version: ${{ matrix.version }}
             rule_file: ${{ matrix.rule_file }}
