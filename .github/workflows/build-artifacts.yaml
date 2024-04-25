@@ -1,11 +1,8 @@
 name: Generate Falco Artifacts
-
 on:
   push:
-
 env:
   OCI_REGISTRY: ghcr.io
-
 jobs:
   build-image:
     name: Build OCI Image
@@ -23,7 +20,6 @@ jobs:
     steps:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@f95db51fddba0c2d1ec667646a06c2ce06100226 # v3.0.0
-
       - name: Log into registry ${{ env.OCI_REGISTRY }}
         if: github.event_name != 'pull_request'
         uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
@@ -31,45 +27,41 @@ jobs:
           registry: ${{ env.OCI_REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Checkout Falcoctl Repo
         uses: actions/checkout@v3
         with:
           repository: falcosecurity/falcoctl
           ref: main
           path: tools/falcoctl
-          
       - name: Setup Golang
         uses: actions/setup-go@v4
         with:
           go-version: '^1.20'
           cache-dependency-path: tools/falcoctl/go.sum  
-
       - name: Build falcoctl
         run: make
         working-directory: tools/falcoctl
-
       - name: Install falcoctl in /usr/local/bin
         run: |
           mv tools/falcoctl/falcoctl /usr/local/bin
-
       - name: Checkout Rules Repo
         uses: actions/checkout@v3
-
-      - name: force owner name to lowercase
+      - name: force owner name to lowercase # Obligatoire pour les organisations / utilisateurs ayant des majuscules dans leur nom Github (ce qui est mon cas...)
         run: |
             owner=$(echo $reponame | cut -d'/' -f1 | tr '[:upper:]' '[:lower:]')
             echo "owner=$owner" >>${GITHUB_ENV}
         env:
           reponame: '${{ github.repository }}'
-        
       - name: Upload OCI artifacts
         run: |
+            MAJOR=$(echo ${version} | cut -f1 -d".")
+            MINOR=$(echo ${version} | cut -f1,2 -d".")
             cp ${rule_file} $(basename ${rule_file})
             falcoctl registry push \
              --config /dev/null \
              --type rulesfile \
              --version ${version} \
+             --tag latest --tag ${MAJOR} --tag ${MINOR} --tag ${version}\
              ${OCI_REGISTRY}/${owner}/${name}:${version} $(basename ${rule_file})
         env:
             version: ${{ matrix.version }}
